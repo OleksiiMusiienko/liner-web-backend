@@ -4,12 +4,12 @@
   "private": true,
   "description": "Web backend for Liner",
   "type": "module",
-  "scripts": {  
-    "test": "pnpm build && node --test",
+  "scripts": {
+    "test": "vitest run",
     "build": "tsc -p tsconfig.json",
     "start": "node --env-file=.env dist/server.js",
     "typecheck": "tsc --noEmit -p tsconfig.json"
-},
+  },
 
   "devEngines": {
     "packageManager": {
@@ -21,7 +21,8 @@
   "packageManager": "pnpm@12.18.0",
   "devDependencies": {
     "@types/node": "^24.19.2",
-    "typescript": "^5.9.3"
+    "typescript": "^5.9.3",
+    "vitest": "^5.1.0"
   },
   "dependencies": {
     "fastify": "^5.12.8"
