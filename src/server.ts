@@ -2,7 +2,10 @@
 import { buildApp } from "./app.js";
 import {env} from "./config/env.js"
 
-const app = buildApp();
+const app = buildApp({
+  logger: true,
+}
+);
 
 async function startServer() {
   try {
