@@ -5,6 +5,7 @@
   "description": "Web backend for Liner",
   "type": "module",
   "scripts": {  
+    "test": "pnpm build && node --test",
     "build": "tsc -p tsconfig.json",
     "start": "node --env-file=.env dist/server.js",
     "typecheck": "tsc --noEmit -p tsconfig.json"
