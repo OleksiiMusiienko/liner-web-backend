@@ -8,21 +8,21 @@
 
 ## 2. Catalog Service
 
-| Method | Endpoint | Призначення | Статус |
-|---|---|---|---|
-| GET | /v1/catalog/search | Пошук музики | Документовано |
-| GET | /v1/catalog/artists/{id} | Дані артиста | Документовано |
-| GET | /v1/catalog/albums/{id} | Дані альбому | Документовано |
-| GET | /v1/catalog/playlists/{id} | Плейлист каталогу | Документовано |
-| GET | /v1/catalog/tracks/{id} | Дані треку | Документовано |
+| Method | Endpoint                   | Призначення       | Статус        |
+| ------ | -------------------------- | ----------------- | ------------- |
+| GET    | /v1/catalog/search         | Пошук музики      | Документовано |
+| GET    | /v1/catalog/artists/{id}   | Дані артиста      | Документовано |
+| GET    | /v1/catalog/albums/{id}    | Дані альбому      | Документовано |
+| GET    | /v1/catalog/playlists/{id} | Плейлист каталогу | Документовано |
+| GET    | /v1/catalog/tracks/{id}    | Дані треку        | Документовано |
 
 ## 3. Lyrics Service
 
-| Method | Endpoint | Призначення | Статус |
-|---|---|---|---|
-| GET | /v1/tracks/{id}/lyrics/resolve | Готова лірика (JSON) | Документовано |
-| GET | /v1/tracks/{id}/lyrics | Потік лірики (SSE) | Документовано |
-| GET | /v1/lyrics/search | Пошук лірики | Документовано |
+| Method | Endpoint                       | Призначення          | Статус        |
+| ------ | ------------------------------ | -------------------- | ------------- |
+| GET    | /v1/tracks/{id}/lyrics/resolve | Готова лірика (JSON) | Документовано |
+| GET    | /v1/tracks/{id}/lyrics         | Потік лірики (SSE)   | Документовано |
+| GET    | /v1/lyrics/search              | Пошук лірики         | Документовано |
 
 ## 4. Авторизація мікросервісів
 
@@ -56,10 +56,10 @@ GET /v1/catalog/search
 
 ### Query Parameters
 
-| Параметр | Обов'язковий | Опис |
-|---|---|---|
-| q | Так | Пошуковий запит, 1–300 символів, не лише пробіли |
-| type | Ні | all, track, artist, album, playlist. За замовчуванням all |
+| Параметр | Обов'язковий | Опис                                                      |
+| -------- | ------------ | --------------------------------------------------------- |
+| q        | Так          | Пошуковий запит, 1–300 символів, не лише пробіли          |
+| type     | Ні           | all, track, artist, album, playlist. За замовчуванням all |
 
 ### Headers
 
@@ -74,14 +74,14 @@ GET /v1/catalog/search
 
 ### Errors
 
-| HTTP | Code | Значення |
-|---|---|---|
-| 400 | USER_ID_REQUIRED | Відсутній або некоректний userId |
-| 400 | VALIDATION_ERROR | Некоректні параметри |
-| 401 | INVALID_API_KEY | Недійсний API-ключ |
-| 429 | RATE_LIMITED | Перевищено ліміт |
-| 503 | CATALOG_UNAVAILABLE | Каталог тимчасово недоступний |
-| 500 | INTERNAL_ERROR | Внутрішня помилка |
+| HTTP | Code                | Значення                         |
+| ---- | ------------------- | -------------------------------- |
+| 400  | USER_ID_REQUIRED    | Відсутній або некоректний userId |
+| 400  | VALIDATION_ERROR    | Некоректні параметри             |
+| 401  | INVALID_API_KEY     | Недійсний API-ключ               |
+| 429  | RATE_LIMITED        | Перевищено ліміт                 |
+| 503  | CATALOG_UNAVAILABLE | Каталог тимчасово недоступний    |
+| 500  | INTERNAL_ERROR      | Внутрішня помилка                |
 
 ### Rate Limits
 
