@@ -1,11 +1,4 @@
-
-import {
-  describe,
-  it,
-  expect,
-  beforeEach,
-  afterEach,
-} from "vitest";
+import { describe, it, expect, beforeEach, afterEach } from "vitest";
 
 import { buildApp } from "../../src/app.js";
 import { AppError } from "../../src/shared/errors/app-error.js";
@@ -24,11 +17,7 @@ afterEach(async () => {
 describe("Error Handler", () => {
   it("returns 400 for AppError", async () => {
     app.get("/test/app-error", async () => {
-      throw new AppError(
-        "Invalid request",
-        400,
-        "INVALID_REQUEST",
-      );
+      throw new AppError("Invalid request", 400, "INVALID_REQUEST");
     });
 
     const response = await app.inject({
@@ -63,54 +52,53 @@ describe("Error Handler", () => {
       message: "Internal Server Error",
     });
   });
-  
-it("logs unexpected errors with Pino", async () => {
-  const logLines: string[] = [];
 
-  const stream = new Writable({
-    write(chunk, _encoding, callback) {
-      logLines.push(chunk.toString());
-      callback();
-    },
-  });
+  it("logs unexpected errors with Pino", async () => {
+    const logLines: string[] = [];
 
-  const loggingApp = buildApp({
-    logger: {
-      level: "info",
-      stream,
-    },
-  });
-
-  try {
-    loggingApp.get("/test/logged-error", async () => {
-      throw new Error("Private diagnostic details");
+    const stream = new Writable({
+      write(chunk, _encoding, callback) {
+        logLines.push(chunk.toString());
+        callback();
+      },
     });
 
-    const response = await loggingApp.inject({
-      method: "GET",
-      url: "/test/logged-error",
+    const loggingApp = buildApp({
+      logger: {
+        level: "info",
+        stream,
+      },
     });
 
-    expect(response.statusCode).toBe(500);
+    try {
+      loggingApp.get("/test/logged-error", async () => {
+        throw new Error("Private diagnostic details");
+      });
 
-    const events = logLines
-      .join("")
-      .trim()
-      .split("\n")
-      .map((line) => JSON.parse(line));
+      const response = await loggingApp.inject({
+        method: "GET",
+        url: "/test/logged-error",
+      });
 
-    expect(events).toContainEqual(
-      expect.objectContaining({
-        level: 50,
-        msg: "Unhandled server error",
-        err: expect.objectContaining({
-          message: "Private diagnostic details",
+      expect(response.statusCode).toBe(500);
+
+      const events = logLines
+        .join("")
+        .trim()
+        .split("\n")
+        .map((line) => JSON.parse(line));
+
+      expect(events).toContainEqual(
+        expect.objectContaining({
+          level: 50,
+          msg: "Unhandled server error",
+          err: expect.objectContaining({
+            message: "Private diagnostic details",
+          }),
         }),
-      }),
-    );
-  } finally {
-    await loggingApp.close();
-  }
-});
-
+      );
+    } finally {
+      await loggingApp.close();
+    }
+  });
 });

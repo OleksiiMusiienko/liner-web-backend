@@ -1,12 +1,4 @@
-
-import {
-  describe,
-  it,
-  expect,
-  beforeEach,
-  afterEach,
-  vi,
-} from "vitest";
+import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
 
 beforeEach(() => {
   vi.stubEnv("CORS_ORIGIN", "http://localhost:5173");
@@ -33,9 +25,7 @@ describe("CORS", () => {
       });
 
       expect(response.statusCode).toBe(200);
-      expect(
-        response.headers["access-control-allow-origin"],
-      ).toBe("http://localhost:5173");
+      expect(response.headers["access-control-allow-origin"]).toBe("http://localhost:5173");
     } finally {
       await app.close();
     }
@@ -55,9 +45,7 @@ describe("CORS", () => {
       });
 
       expect(response.statusCode).toBe(200);
-      expect(
-        response.headers["access-control-allow-origin"],
-      ).toBe("http://localhost:5173");
+      expect(response.headers["access-control-allow-origin"]).toBe("http://localhost:5173");
     } finally {
       await app.close();
     }
