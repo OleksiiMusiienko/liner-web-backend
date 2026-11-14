@@ -1,5 +1,6 @@
-import { describe, expect, it, vi } from "vitest";
+//модульный тест фабрики Axios-клиента каталога. Проверяет конфигурацию HTTP-клиента без сетевых запросов.
 
+import { describe, expect, it, vi } from "vitest";
 import { createCatalogClient } from "../../../../src/integrations/liner/catalog.client.js";
 
 vi.mock("../../../../src/config/env.js", () => ({
