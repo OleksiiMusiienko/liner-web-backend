@@ -3,6 +3,9 @@ import { env } from "./config/env.js";
 
 const app = buildApp({
   logger: true,
+},
+{
+  enableDatabase: true,
 });
 
 async function startServer() {
