@@ -2,7 +2,7 @@
 import Fastify from "fastify";
 import type { FastifyInstance, FastifyServerOptions } from "fastify";
 
-import { healthRoutes } from "./modules/health/health.routes.js";
+import { healthRoutes } from "./routes/health.routes.js";
 import { errorHandler } from "./shared/errors/error-handler.js";
 import { registerCors } from "./plugins/cors.js";
 import databasePlugin from "./plugins/database.plugin.js";

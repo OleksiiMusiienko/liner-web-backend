@@ -1,15 +1,19 @@
-
 import {
   index,
-  pgTable,
   text,
   timestamp,
+  uniqueIndex,
   uuid,
 } from "drizzle-orm/pg-core";
 
+import { accountSchema } from "./account.schema.js";
 import { users } from "./users.schema.js";
 
-export const sessions = pgTable(
+// Drizzle-модель сессий авторизации Liner.
+// Хранит пользователя, хеш токена, сроки действия,
+// отзыв сессии и время первоначального входа.
+
+export const sessions = accountSchema.table(
   "sessions",
   {
     id: uuid("id").defaultRandom().primaryKey(),
@@ -33,11 +37,15 @@ export const sessions = pgTable(
     }),
 
     replacedById: uuid("replaced_by_id"),
+
     userAgent: text("user_agent"),
-    ipHash: text("ip_hash"),
+
+    signedInAt: timestamp("signed_in_at", {
+      withTimezone: true,
+    }),
   },
   (table) => [
-    index("sessions_token_hash_idx").on(table.tokenHash),
+    uniqueIndex("sessions_token_hash_unique").on(table.tokenHash),
     index("sessions_user_id_idx").on(table.userId),
   ],
 );
