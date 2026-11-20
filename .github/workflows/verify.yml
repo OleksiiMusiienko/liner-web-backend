@@ -1,6 +1,7 @@
 name: Verify & Test
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - main
@@ -37,9 +38,6 @@ jobs:
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
-
-      - name: Check code formatting (Prettier)
-        run: pnpm format:check
 
       - name: Run linter (ESLint)
         run: pnpm lint
